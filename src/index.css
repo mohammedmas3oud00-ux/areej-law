@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --color-primary: #9A784E;
+    --color-primary-dark: #7D5F37;
+    --color-primary-light: #C2A273;
+    --bg-page-light: #F7F5F0;
+    --bg-page-dark: #121212;
+  }
+
+  body {
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Custom smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #9A784E66;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9A784EAA;
+  }
+}
+
+.font-serif-legal {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-sans-ar {
+  font-family: 'Cairo', system-ui, sans-serif;
+}
