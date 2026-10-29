@@ -18,17 +18,17 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   const isAr = language === 'ar';
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex items-center gap-2 sm:gap-3 min-w-0 ${className}`}>
       {/* Bespoke Scales of Justice Emblem */}
       <div className="relative shrink-0 flex items-center justify-center">
         <svg
           viewBox="0 0 100 100"
           className={
             size === 'sm'
-              ? 'w-9 h-9'
+              ? 'w-8 h-8 sm:w-9 sm:h-9'
               : size === 'lg'
-              ? 'w-14 h-14'
-              : 'w-11 h-11'
+              ? 'w-12 h-12 sm:w-14 sm:h-14'
+              : 'w-9 h-9 sm:w-11 sm:h-11'
           }
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -153,16 +153,23 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         </svg>
       </div>
 
-      {/* Typography Lockup */}
-      <div className="flex flex-col">
-        <span className="font-bold tracking-tight text-[#181818] dark:text-[#F5F5F4] leading-tight font-sans-ar text-base sm:text-lg">
+      {/* Typography Lockup - Responsive & Non-overflowing */}
+      <div className="flex flex-col min-w-0 overflow-hidden">
+        {/* Full Name on sm+ screens */}
+        <span className="hidden sm:block font-bold tracking-tight text-[#181818] dark:text-[#F5F5F4] leading-tight font-sans-ar text-base sm:text-lg truncate">
           {isAr ? FIRM_DETAILS.nameAr : FIRM_DETAILS.nameEn}
         </span>
+        
+        {/* Concise Name on mobile screens */}
+        <span className="block sm:hidden font-bold tracking-tight text-[#181818] dark:text-[#F5F5F4] leading-tight font-sans-ar text-sm truncate">
+          {isAr ? 'المحامية أريج المجنوني' : 'Advocate Areej Al-Majnuni'}
+        </span>
+
         {showBadge && (
-          <span className="text-[11px] text-[#78716C] dark:text-[#A8A29E] font-medium tracking-normal mt-0.5 flex items-center gap-1.5">
-            <span>{isAr ? 'ترخيص رقم' : 'License No.'} {FIRM_DETAILS.licenseNumber}</span>
+          <span className="text-[10px] sm:text-[11px] text-[#78716C] dark:text-[#A8A29E] font-medium tracking-normal mt-0.5 flex items-center gap-1 sm:gap-1.5 truncate">
+            <span>{isAr ? 'ترخيص' : 'Lic.'} {FIRM_DETAILS.licenseNumber}</span>
             <span aria-hidden="true" className="text-[#9A784E]">·</span>
-            <span>{isAr ? 'مكة المكرمة' : 'Makkah Al-Mukarramah'}</span>
+            <span className="truncate">{isAr ? 'مكة المكرمة' : 'Makkah'}</span>
           </span>
         )}
       </div>

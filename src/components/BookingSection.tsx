@@ -3,7 +3,7 @@ import { FIRM_DETAILS, LEGAL_SERVICES } from '../data/lawFirmData';
 import { Language, BookingFormData, LegalService } from '../types';
 import { getMakkahOfficeStatus } from '../utils/workingHours';
 import { generateWhatsAppConsultationUrl, OFFICIAL_PHONE, OFFICIAL_EMAIL } from '../utils/whatsapp';
-import { Clock, Send, CheckCircle2, MapPin, Phone, Mail, Calendar, MessageSquare, AlertCircle } from 'lucide-react';
+import { Clock, Send, CheckCircle2, MapPin, Phone, Mail, MessageSquare } from 'lucide-react';
 
 interface BookingSectionProps {
   language: Language;
@@ -20,7 +20,6 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
   const [officeStatus, setOfficeStatus] = useState(getMakkahOfficeStatus());
 
   useEffect(() => {
-    // Update every minute to keep Makkah clock and status accurate
     const timer = setInterval(() => {
       setOfficeStatus(getMakkahOfficeStatus());
     }, 30000);
@@ -71,25 +70,23 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
       : (isAr ? 'استشارة قانونية عامة' : 'General Legal Consultation');
 
     const whatsappUrl = generateWhatsAppConsultationUrl(formData, serviceName, language);
-    
-    // Open WhatsApp in a new tab
     window.open(whatsappUrl, '_blank');
     setFormSubmitted(true);
   };
 
   return (
-    <section id="booking" className="py-16 sm:py-24 relative overflow-hidden">
+    <section id="booking" className="py-12 sm:py-20 lg:py-24 relative overflow-hidden w-full max-w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}
-        <div className="max-w-3xl mb-12">
-          <span className="text-xs font-bold tracking-widest text-[#9A784E] dark:text-[#C2A273] uppercase mb-2 block font-sans-ar">
+        <div className="max-w-3xl mb-8 sm:mb-12">
+          <span className="text-[11px] sm:text-xs font-bold tracking-widest text-[#9A784E] dark:text-[#C2A273] uppercase mb-1.5 sm:mb-2 block font-sans-ar">
             {isAr ? 'حجز موعد واستشارة فورية' : 'APPOINTMENT & CONSULTATION FUNNEL'}
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#181818] dark:text-[#FAF8F5] font-sans-ar tracking-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#181818] dark:text-[#FAF8F5] font-sans-ar tracking-tight leading-tight">
             {isAr ? 'مواعيد الدوام الرسمية ونموذج الحجز المباشر' : 'Official Working Hours & Direct Booking'}
           </h2>
-          <p className="text-sm sm:text-base text-[#57534E] dark:text-[#A8A29E] mt-3 leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-[#57534E] dark:text-[#A8A29E] mt-2 sm:mt-3 leading-relaxed">
             {isAr
               ? 'احجز جلستك القانونية حضورياً بمقر المكتب في حي الشوقية بمكة المكرمة، أو حدد موعداً هاتفياً للاستشارة عبر الواتساب مع المحامية أريج المجنوني.'
               : 'Schedule an in-person session at our Al-Shawqiyyah office in Makkah, or book a phone consultation with Advocate Areej Al-Majnuni.'}
@@ -97,36 +94,36 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
         </div>
 
         {/* 2-Column Split: Working Hours & Live Status (5 cols) + Booking Form (7 cols) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* Left Column: Working Hours Card & Office Live Status */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6 w-full">
             
             {/* Live Office Status Card */}
-            <div className="rounded-2xl p-6 sm:p-7 bg-[#F7F5F0] dark:bg-[#1A1816] border border-[#E7E2D8] dark:border-[#2C2926] shadow-sm">
-              <div className="flex items-center justify-between pb-5 border-b border-[#E7E2D8] dark:border-[#2A2825]">
-                <div className="flex items-center gap-2.5">
-                  <Clock className="w-5 h-5 text-[#9A784E]" />
-                  <h3 className="text-base font-bold text-[#181818] dark:text-[#FAF8F5]">
+            <div className="rounded-2xl p-4 sm:p-7 bg-[#F7F5F0] dark:bg-[#1A1816] border border-[#E7E2D8] dark:border-[#2C2926] shadow-sm">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E7E2D8] dark:border-[#2A2825] gap-2">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#9A784E] shrink-0" />
+                  <h3 className="text-sm sm:text-base font-bold text-[#181818] dark:text-[#FAF8F5]">
                     {isAr ? 'حالة المكتب المباشرة الآن' : 'Live Office Status'}
                   </h3>
                 </div>
-                <div className="text-xs text-[#78716C] dark:text-[#A8A29E] tabular-nums font-medium">
-                  {isAr ? 'توقيت مكة:' : 'Makkah Time:'} {officeStatus.makkahTimeFormatted}
+                <div className="text-[11px] sm:text-xs text-[#78716C] dark:text-[#A8A29E] tabular-nums font-medium whitespace-nowrap">
+                  {isAr ? 'توقيت مكة:' : 'Makkah:'} {officeStatus.makkahTimeFormatted}
                 </div>
               </div>
 
               {/* Status Indicator */}
-              <div className="py-5">
-                <div className="flex items-center gap-3">
-                  <div className={`w-3.5 h-3.5 rounded-full ${officeStatus.isOpen ? 'bg-emerald-500 ring-4 ring-emerald-500/20 animate-pulse' : 'bg-amber-500'}`} />
+              <div className="py-4">
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <div className={`w-3.5 h-3.5 rounded-full shrink-0 mt-0.5 ${officeStatus.isOpen ? 'bg-emerald-500 ring-4 ring-emerald-500/20 animate-pulse' : 'bg-amber-500'}`} />
                   <div>
-                    <h4 className="text-sm font-bold text-[#181818] dark:text-[#FAF8F5]">
+                    <h4 className="text-xs sm:text-sm font-bold text-[#181818] dark:text-[#FAF8F5]">
                       {officeStatus.isOpen
                         ? (isAr ? 'المكتب مفتوح لاستقبالكم حالياً' : 'Office Is Currently Open')
                         : (isAr ? 'المكتب مغلق حالياً (استقبال الرسائل متاح)' : 'Office Closed - WhatsApp Open')}
                     </h4>
-                    <p className="text-xs text-[#78716C] dark:text-[#A8A29E] mt-0.5">
+                    <p className="text-[11px] sm:text-xs text-[#78716C] dark:text-[#A8A29E] mt-0.5">
                       {isAr ? officeStatus.nextShiftTimeAr : officeStatus.nextShiftTimeEn}
                     </p>
                   </div>
@@ -134,36 +131,36 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
               </div>
 
               {/* Shift Schedule Table */}
-              <div className="space-y-3 pt-3 border-t border-[#E7E2D8] dark:border-[#2A2825]">
+              <div className="space-y-2.5 pt-2 border-t border-[#E7E2D8] dark:border-[#2A2825]">
                 {/* Morning Shift */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825]">
-                  <div>
-                    <span className="text-xs font-bold text-[#181818] dark:text-[#FAF8F5] block">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825] gap-2">
+                  <div className="min-w-0">
+                    <span className="text-xs font-bold text-[#181818] dark:text-[#FAF8F5] block truncate">
                       {isAr ? 'الفترة الصباحية' : 'Morning Shift'}
                     </span>
-                    <span className="text-[11px] text-[#78716C] dark:text-[#A8A29E]">
-                      {isAr ? 'استشارات حضورية ومتابعة قضايا' : 'In-person consultations & hearings'}
+                    <span className="text-[10px] sm:text-[11px] text-[#78716C] dark:text-[#A8A29E] block truncate">
+                      {isAr ? 'استشارات حضورية ومتابعة قضايا' : 'In-person consultations'}
                     </span>
                   </div>
-                  <div className="text-right">
-                    <span className="text-xs font-bold text-[#9A784E] dark:text-[#C2A273] tabular-nums">
+                  <div className="text-right shrink-0">
+                    <span className="text-xs font-bold text-[#9A784E] dark:text-[#C2A273] tabular-nums whitespace-nowrap">
                       {isAr ? '9:00 ص – 12:00 ظ' : '9:00 AM – 12:00 PM'}
                     </span>
                   </div>
                 </div>
 
                 {/* Evening Shift */}
-                <div className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825]">
-                  <div>
-                    <span className="text-xs font-bold text-[#181818] dark:text-[#FAF8F5] block">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825] gap-2">
+                  <div className="min-w-0">
+                    <span className="text-xs font-bold text-[#181818] dark:text-[#FAF8F5] block truncate">
                       {isAr ? 'الفترة المسائية' : 'Evening Shift'}
                     </span>
-                    <span className="text-[11px] text-[#78716C] dark:text-[#A8A29E]">
-                      {isAr ? 'استقبال المراجعين وجلسات الاستشارة' : 'Client meetings & consultations'}
+                    <span className="text-[10px] sm:text-[11px] text-[#78716C] dark:text-[#A8A29E] block truncate">
+                      {isAr ? 'استقبال المراجعين وجلسات الاستشارة' : 'Client meetings'}
                     </span>
                   </div>
-                  <div className="text-right">
-                    <span className="text-xs font-bold text-[#9A784E] dark:text-[#C2A273] tabular-nums">
+                  <div className="text-right shrink-0">
+                    <span className="text-xs font-bold text-[#9A784E] dark:text-[#C2A273] tabular-nums whitespace-nowrap">
                       {isAr ? '5:00 م – 11:00 م' : '5:00 PM – 11:00 PM'}
                     </span>
                   </div>
@@ -171,10 +168,10 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
               </div>
 
               {/* Location Quick Summary */}
-              <div className="mt-5 p-4 rounded-xl bg-[#9A784E]/10 dark:bg-[#9A784E]/15 border border-[#9A784E]/25">
+              <div className="mt-4 p-3.5 rounded-xl bg-[#9A784E]/10 dark:bg-[#9A784E]/15 border border-[#9A784E]/25">
                 <div className="flex items-start gap-2.5">
                   <MapPin className="w-4 h-4 text-[#9A784E] shrink-0 mt-0.5" />
-                  <div className="text-xs text-[#44403C] dark:text-[#D6D3D1]">
+                  <div className="text-xs text-[#44403C] dark:text-[#D6D3D1] leading-relaxed">
                     <strong className="text-[#181818] dark:text-[#FAF8F5] block mb-0.5">
                       {isAr ? 'مقر المكتب بمكة المكرمة:' : 'Office Location in Makkah:'}
                     </strong>
@@ -185,17 +182,17 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
             </div>
 
             {/* Direct Contact Options */}
-            <div className="rounded-2xl p-6 bg-[#F7F5F0] dark:bg-[#1A1816] border border-[#E7E2D8] dark:border-[#2C2926] space-y-3">
-              <h4 className="text-xs font-bold tracking-wider text-[#78716C] dark:text-[#A8A29E] uppercase">
+            <div className="rounded-2xl p-4 sm:p-6 bg-[#F7F5F0] dark:bg-[#1A1816] border border-[#E7E2D8] dark:border-[#2C2926] space-y-2.5">
+              <h4 className="text-[11px] sm:text-xs font-bold tracking-wider text-[#78716C] dark:text-[#A8A29E] uppercase">
                 {isAr ? 'قنوات الاتصال المباشر' : 'Direct Channels'}
               </h4>
 
               <a
                 href={`tel:${OFFICIAL_PHONE}`}
-                className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825] hover:border-[#9A784E] transition-colors"
+                className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825] hover:border-[#9A784E] transition-colors min-h-[44px]"
               >
-                <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-[#9A784E]" />
+                <div className="flex items-center gap-2.5">
+                  <Phone className="w-4 h-4 text-[#9A784E] shrink-0" />
                   <span className="text-xs font-bold text-[#181818] dark:text-[#FAF8F5] tabular-nums" dir="ltr">
                     {FIRM_DETAILS.phoneDisplay}
                   </span>
@@ -207,15 +204,15 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
               <a
                 href={`mailto:${OFFICIAL_EMAIL}`}
-                className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825] hover:border-[#9A784E] transition-colors"
+                className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-[#201E1C] border border-[#EBE7DF] dark:border-[#2B2825] hover:border-[#9A784E] transition-colors min-h-[44px]"
               >
-                <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-[#9A784E]" />
-                  <span className="text-xs font-medium text-[#181818] dark:text-[#FAF8F5]">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <Mail className="w-4 h-4 text-[#9A784E] shrink-0" />
+                  <span className="text-xs font-medium text-[#181818] dark:text-[#FAF8F5] truncate">
                     {OFFICIAL_EMAIL}
                   </span>
                 </div>
-                <span className="text-[11px] text-[#78716C] dark:text-[#A8A29E]">
+                <span className="text-[11px] text-[#78716C] dark:text-[#A8A29E] shrink-0">
                   {isAr ? 'مراسلة' : 'Email'}
                 </span>
               </a>
@@ -224,14 +221,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
           </div>
 
           {/* Right Column: WhatsApp Interactive Consultation Booking Form (7 cols) */}
-          <div className="lg:col-span-7">
-            <div className="rounded-2xl p-6 sm:p-8 bg-[#F7F5F0] dark:bg-[#1A1816] border border-[#E7E2D8] dark:border-[#2C2926] shadow-sm">
+          <div className="lg:col-span-7 w-full">
+            <div className="rounded-2xl p-4 sm:p-7 bg-[#F7F5F0] dark:bg-[#1A1816] border border-[#E7E2D8] dark:border-[#2C2926] shadow-sm">
               
-              <div className="pb-6 border-b border-[#E7E2D8] dark:border-[#2A2825] mb-6">
-                <h3 className="text-lg sm:text-xl font-bold text-[#181818] dark:text-[#FAF8F5] font-sans-ar">
+              <div className="pb-4 sm:pb-5 border-b border-[#E7E2D8] dark:border-[#2A2825] mb-5">
+                <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#181818] dark:text-[#FAF8F5] font-sans-ar leading-tight">
                   {isAr ? 'نموذج طلب الخدمة والاستشارة (مربوط بالواتساب)' : 'Service & Consultation Request Form'}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#78716C] dark:text-[#A8A29E] mt-1">
+                <p className="text-xs text-[#78716C] dark:text-[#A8A29E] mt-1 leading-relaxed">
                   {isAr
                     ? 'املأ البيانات وسيقوم النظام بتنسيق رسالة حجز رسمية تفتح محادثة واتساب مباشرة مع المحامية.'
                     : 'Fill in details to generate a structured booking message sent directly to Advocate Areej via WhatsApp.'}
@@ -239,13 +236,13 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
               </div>
 
               {formSubmitted && (
-                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-3">
+                <div className="mb-5 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-2.5">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-300">
+                    <h4 className="text-xs sm:text-sm font-bold text-emerald-800 dark:text-emerald-300">
                       {isAr ? 'تم فتح تطبيق الواتساب بنجاح!' : 'WhatsApp opened successfully!'}
                     </h4>
-                    <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-0.5">
+                    <p className="text-[11px] sm:text-xs text-emerald-700 dark:text-emerald-400 mt-0.5">
                       {isAr
                         ? 'إذا لم تفتح المحادثة تلقائياً، يمكنك إرسال الرسالة مباشرة على الرقم +966548989025.'
                         : 'If WhatsApp did not trigger, you can reach out directly to +966548989025.'}
@@ -254,17 +251,17 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 
                 {/* Field 1: Service Selection */}
                 <div>
-                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1.5">
+                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1">
                     {isAr ? 'نوع الخدمة القانونية المطلوبة *' : 'Requested Legal Service *'}
                   </label>
                   <select
                     value={formData.serviceId}
                     onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
-                    className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-[#201E1C] border border-[#DDD7CC] dark:border-[#333333] rounded-xl text-[#181818] dark:text-[#FAF8F5] focus:outline-none focus:ring-2 focus:ring-[#9A784E]"
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm bg-white dark:bg-[#201E1C] border border-[#DDD7CC] dark:border-[#333333] rounded-xl text-[#181818] dark:text-[#FAF8F5] focus:outline-none focus:ring-2 focus:ring-[#9A784E]"
                   >
                     {LEGAL_SERVICES.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -275,9 +272,9 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 </div>
 
                 {/* Field 2 & 3: Name & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1.5">
+                    <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1">
                       {isAr ? 'الاسم الكريم *' : 'Full Name *'}
                     </label>
                     <input
@@ -286,12 +283,12 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                       placeholder={isAr ? 'أدخل اسمك الكريم' : 'Your full name'}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-[#201E1C] border border-[#DDD7CC] dark:border-[#333333] rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E]"
+                      className="w-full px-3 py-2.5 text-xs sm:text-sm bg-white dark:bg-[#201E1C] border border-[#DDD7CC] dark:border-[#333333] rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1.5">
+                    <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1">
                       {isAr ? 'رقم الجوال (واتساب) *' : 'Mobile Number (WhatsApp) *'}
                     </label>
                     <input
@@ -301,7 +298,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                       placeholder="05XXXXXXXX / +966..."
                       value={formData.phone}
                       onChange={handlePhoneChange}
-                      className={`w-full px-3.5 py-2.5 text-sm bg-white dark:bg-[#201E1C] border rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E] ${
+                      className={`w-full px-3 py-2.5 text-xs sm:text-sm bg-white dark:bg-[#201E1C] border rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E] ${
                         phoneError ? 'border-red-500' : 'border-[#DDD7CC] dark:border-[#333333]'
                       }`}
                     />
@@ -313,10 +310,10 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
                 {/* Field 4: Preferred Shift / Slot */}
                 <div>
-                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1.5">
+                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1">
                     {isAr ? 'فترة التواصل أو الزيارة المفضلة *' : 'Preferred Shift / Time Slot *'}
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
                       {
                         id: 'morning',
@@ -344,16 +341,16 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                         type="button"
                         key={shift.id}
                         onClick={() => setFormData({ ...formData, preferredShift: shift.id as any })}
-                        className={`p-3 text-right rtl:text-right ltr:text-left rounded-xl border transition-all ${
+                        className={`p-2.5 text-right rtl:text-right ltr:text-left rounded-xl border transition-all cursor-pointer min-h-[44px] ${
                           formData.preferredShift === shift.id
-                            ? 'bg-[#9A784E]/10 border-[#9A784E] text-[#181818] dark:text-[#FAF8F5] ring-1 ring-[#9A784E]'
+                            ? 'bg-[#9A784E]/15 border-[#9A784E] text-[#181818] dark:text-[#FAF8F5] ring-1 ring-[#9A784E]'
                             : 'bg-white dark:bg-[#201E1C] border-[#DDD7CC] dark:border-[#333333] text-[#57534E] dark:text-[#A8A29E]'
                         }`}
                       >
                         <span className="text-xs font-bold block">
                           {isAr ? shift.titleAr : shift.titleEn}
                         </span>
-                        <span className="text-[11px] text-[#78716C] dark:text-[#A8A29E] block mt-0.5 tabular-nums">
+                        <span className="text-[10px] sm:text-[11px] text-[#78716C] dark:text-[#A8A29E] block mt-0.5 tabular-nums">
                           {isAr ? shift.subAr : shift.subEn}
                         </span>
                       </button>
@@ -363,10 +360,10 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
                 {/* Field 5: Consultation Type */}
                 <div>
-                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1.5">
+                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1">
                     {isAr ? 'صيغة الاستشارة' : 'Consultation Mode'}
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
                       { id: 'office', labelAr: 'حضور بمقر المكتب', labelEn: 'In-person at Office' },
                       { id: 'whatsapp_call', labelAr: 'هاتفية / عبر الواتساب', labelEn: 'Phone / WhatsApp' },
@@ -376,7 +373,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                         type="button"
                         key={mode.id}
                         onClick={() => setFormData({ ...formData, consultationType: mode.id as any })}
-                        className={`p-2.5 text-center text-xs font-semibold rounded-xl border transition-all ${
+                        className={`p-2.5 text-center text-xs font-semibold rounded-xl border transition-all cursor-pointer min-h-[40px] flex items-center justify-center ${
                           formData.consultationType === mode.id
                             ? 'bg-[#9A784E] text-white border-[#9A784E]'
                             : 'bg-white dark:bg-[#201E1C] border-[#DDD7CC] dark:border-[#333333] text-[#57534E] dark:text-[#A8A29E]'
@@ -390,7 +387,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
                 {/* Field 6: Brief Case Details */}
                 <div>
-                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1.5">
+                  <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1">
                     {isAr ? 'ملخص مختصر للموضوع أو القضية' : 'Case / Subject Brief'}
                   </label>
                   <textarea
@@ -402,7 +399,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                     }
                     value={formData.details}
                     onChange={(e) => setFormData({ ...formData, details: e.target.value })}
-                    className="w-full px-3.5 py-2.5 text-sm bg-white dark:bg-[#201E1C] border border-[#DDD7CC] dark:border-[#333333] rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E]"
+                    className="w-full px-3 py-2.5 text-xs sm:text-sm bg-white dark:bg-[#201E1C] border border-[#DDD7CC] dark:border-[#333333] rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E]"
                   />
                 </div>
 
@@ -410,16 +407,16 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm sm:text-base font-bold text-white bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 rounded-xl shadow-md shadow-emerald-700/20 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-700"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-3.5 text-xs sm:text-sm md:text-base font-bold text-white bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 rounded-xl shadow-md shadow-emerald-700/20 transition-all cursor-pointer min-h-[44px] text-center"
                   >
                     <Send className="w-4 h-4 shrink-0" />
                     <span>
                       {isAr
-                        ? 'إرسال طلب الحجز وفتح الواتساب مباشرة (+966548989025)'
-                        : 'Submit Booking & Open WhatsApp (+966548989025)'}
+                        ? 'إرسال طلب الحجز عبر الواتساب (+966548989025)'
+                        : 'Submit Booking via WhatsApp (+966548989025)'}
                     </span>
                   </button>
-                  <p className="text-[11px] text-[#78716C] dark:text-[#A8A29E] text-center mt-2.5">
+                  <p className="text-[10px] sm:text-[11px] text-[#78716C] dark:text-[#A8A29E] text-center mt-2 leading-relaxed">
                     {isAr
                       ? 'الرسالة تتولد منسقة ومجهزة؛ يمكنك مراجعتها وتعديلها في تطبيق الواتساب قبل الإرسال.'
                       : 'The message is automatically structured; you can review it before sending.'}

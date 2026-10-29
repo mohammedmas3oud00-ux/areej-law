@@ -12,9 +12,8 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ language }) => {
   const isAr = language === 'ar';
   const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-[#EFECE6] dark:bg-[#0E0D0C] border-t border-[#DDD7CC] dark:border-[#22201E] pt-14 pb-12 transition-colors duration-200">
+    <footer className="bg-[#EFECE6] dark:bg-[#0E0D0C] border-t border-[#DDD7CC] dark:border-[#22201E] pt-10 sm:pt-14 pb-20 sm:pb-12 transition-colors duration-200 w-full overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Footer Grid */}
