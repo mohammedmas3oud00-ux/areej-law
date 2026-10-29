@@ -58,7 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
           className="min-w-0 flex-1 sm:flex-initial focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9A784E] rounded-md transition-opacity hover:opacity-95"
           aria-label={isAr ? FIRM_DETAILS.nameAr : FIRM_DETAILS.nameEn}
         >
-          <BrandLogo language={language} size="md" />
+          <BrandLogo language={language} size="md" showBadge={false} />
         </a>
 
         {/* Zone 2: Desktop Navigation Links */}

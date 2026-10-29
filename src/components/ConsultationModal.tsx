@@ -28,25 +28,27 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [formError, setFormError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.phone.trim()) {
-      alert(isAr ? 'يرجى إكمال الاسم ورقم الجوال' : 'Please complete name and phone number');
+      setFormError(isAr ? 'يرجى إكمال الاسم ورقم الجوال للتواصل' : 'Please complete your name and phone number');
       return;
     }
 
+    setFormError('');
     const selectedServiceObj = LEGAL_SERVICES.find((s) => s.id === formData.serviceId);
     const serviceName = selectedServiceObj
       ? (isAr ? selectedServiceObj.titleAr : selectedServiceObj.titleEn)
       : 'استشارة قانونية';
 
     const url = generateWhatsAppConsultationUrl(formData, serviceName, language);
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
     setTimeout(() => {
       onClose();
-    }, 2000);
+    }, 2200);
   };
 
   return (
@@ -94,6 +96,11 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3.5">
+              {formError && (
+                <div className="p-2.5 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-xs text-red-700 dark:text-red-300">
+                  {formError}
+                </div>
+              )}
               <div>
                 <label className="block text-xs font-bold text-[#44403C] dark:text-[#D6D3D1] mb-1">
                   {isAr ? 'الخدمة المطلوبة' : 'Service'}

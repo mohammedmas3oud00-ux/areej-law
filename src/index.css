@@ -51,3 +51,18 @@
 .font-sans-ar {
   font-family: 'Cairo', system-ui, sans-serif;
 }
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Subtle architectural Islamic geometric watermark */
+.bg-islamic-pattern {
+  background-image: radial-gradient(rgba(154, 120, 78, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark .bg-islamic-pattern {
+  background-image: radial-gradient(rgba(194, 162, 115, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

@@ -44,6 +44,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [phoneError, setPhoneError] = useState('');
+  const [nameError, setNameError] = useState('');
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -51,11 +52,17 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
     if (phoneError) setPhoneError('');
   };
 
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setFormData((prev) => ({ ...prev, name: val }));
+    if (nameError) setNameError('');
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.name.trim()) {
-      alert(isAr ? 'يرجى إدخال الاسم الكريم' : 'Please enter your full name');
+      setNameError(isAr ? 'يرجى إدخال الاسم الكريم' : 'Please enter your full name');
       return;
     }
 
@@ -70,7 +77,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
       : (isAr ? 'استشارة قانونية عامة' : 'General Legal Consultation');
 
     const whatsappUrl = generateWhatsAppConsultationUrl(formData, serviceName, language);
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     setFormSubmitted(true);
   };
 
@@ -282,9 +289,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({
                       required
                       placeholder={isAr ? 'أدخل اسمك الكريم' : 'Your full name'}
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-3 py-2.5 text-xs sm:text-sm bg-white dark:bg-[#201E1C] border border-[#DDD7CC] dark:border-[#333333] rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E]"
+                      onChange={handleNameChange}
+                      className={`w-full px-3 py-2.5 text-xs sm:text-sm bg-white dark:bg-[#201E1C] border rounded-xl text-[#181818] dark:text-[#FAF8F5] placeholder-[#A8A29E] focus:outline-none focus:ring-2 focus:ring-[#9A784E] ${
+                        nameError ? 'border-red-500' : 'border-[#DDD7CC] dark:border-[#333333]'
+                      }`}
                     />
+                    {nameError && (
+                      <span className="text-[11px] text-red-600 mt-1 block">{nameError}</span>
+                    )}
                   </div>
 
                   <div>

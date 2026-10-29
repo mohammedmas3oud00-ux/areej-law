@@ -104,13 +104,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             return (
               <div
                 key={service.id}
-                className={`relative flex flex-col justify-between rounded-2xl p-5 sm:p-7 bg-[#F7F5F0] dark:bg-[#1A1816] border border-[#E7E2D8] dark:border-[#2C2926] transition-all hover:border-[#C2A273] dark:hover:border-[#9A784E]/70 group hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 ${
-                  isFeatured ? 'md:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#F7F5F0] via-[#F4EFE6] to-[#EDE7DA] dark:from-[#1C1A17] dark:to-[#171513]' : ''
+                className={`relative flex flex-col justify-between rounded-2xl p-6 sm:p-7 bg-[#FFFFFF] dark:bg-[#1A1816] border border-[#E7E1D4] dark:border-[#2C2926] transition-all hover:border-[#9A784E]/70 dark:hover:border-[#C2A273]/60 group hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20 ${
+                  isFeatured ? 'md:col-span-2 lg:col-span-2 bg-gradient-to-br from-[#FFFFFF] via-[#FAF7F2] to-[#F5EFE4] dark:from-[#1E1C19] dark:to-[#161412] border-[#9A784E]/40' : ''
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-mono font-bold tracking-widest text-[#9A784E] dark:text-[#C2A273]">
+                    <span className="text-xs font-mono font-bold tracking-widest text-[#9A784E] dark:text-[#C2A273] tabular-nums">
                       {service.number}
                     </span>
                     <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#9A784E]/10 dark:bg-[#9A784E]/15 border border-[#9A784E]/25 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -126,7 +126,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     {isAr ? service.shortDescAr : service.shortDescEn}
                   </p>
 
-                  <ul className="space-y-2 mb-5">
+                  <ul className="space-y-2.5 mb-5">
                     {(isAr ? service.featuresAr : service.featuresEn).slice(0, 3).map((feat, i) => (
                       <li key={i} className="flex items-start gap-2 text-xs text-[#44403C] dark:text-[#D6D3D1]">
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#9A784E] shrink-0 mt-0.5" />
@@ -137,18 +137,18 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 </div>
 
                 {/* Bottom Card Actions */}
-                <div className="pt-4 border-t border-[#E7E2D8] dark:border-[#2A2825] flex items-center justify-between gap-2.5">
+                <div className="pt-4 border-t border-[#EAE4D9] dark:border-[#2A2724] flex items-center justify-between gap-2.5">
                   <button
                     onClick={() => onSelectService(service)}
-                    className="flex-1 flex items-center justify-center gap-1 px-3 py-2.5 text-xs font-bold text-white bg-[#9A784E] hover:bg-[#86673E] active:bg-[#735632] rounded-xl transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9A784E] cursor-pointer min-h-[40px]"
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-bold text-white bg-[#9A784E] hover:bg-[#86673E] active:bg-[#735632] rounded-xl transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9A784E] cursor-pointer min-h-[42px]"
                   >
-                    <span>{isAr ? 'اطلب الخدمة الآن' : 'Request Service'}</span>
+                    <span>{isAr ? 'طلب الخدمة الآن' : 'Request Service'}</span>
                     {isAr ? <ChevronLeft className="w-3.5 h-3.5 shrink-0" /> : <ChevronRight className="w-3.5 h-3.5 shrink-0" />}
                   </button>
 
                   <button
                     onClick={() => onViewServiceDetails(service)}
-                    className="flex items-center justify-center gap-1 px-3 py-2.5 text-xs font-semibold text-[#57534E] dark:text-[#A8A29E] hover:text-[#181818] dark:hover:text-[#FAF8F5] hover:bg-[#EFECE6] dark:hover:bg-[#242220] rounded-xl border border-[#E0DBD0] dark:border-[#2F2C29] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9A784E] cursor-pointer min-h-[40px]"
+                    className="flex items-center justify-center gap-1 px-3 py-2.5 text-xs font-semibold text-[#57534E] dark:text-[#A8A29E] hover:text-[#181818] dark:hover:text-[#FAF8F5] hover:bg-[#F2ECE1] dark:hover:bg-[#242220] rounded-xl border border-[#DDD7CB] dark:border-[#2F2C29] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9A784E] cursor-pointer min-h-[42px]"
                   >
                     <span>{isAr ? 'التفاصيل' : 'Details'}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
